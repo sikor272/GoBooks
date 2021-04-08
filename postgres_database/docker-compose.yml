@@ -1,0 +1,33 @@
+version: '3.3'
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+    volumes:
+      - type: volume
+        source: database
+        target: /var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  pgAdmin:
+    container_name: pgAdmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root@gobooks.com
+      PGADMIN_DEFAULT_PASSWORD: 123
+    volumes:
+      - type: bind
+        source: ./servers.json
+        target: /pgadmin4/servers.json
+        read_only: true
+      - type: volume
+        source: pgAdmin
+        target: /var/lib/pgadmin
+    ports:
+      - 8081:80
+volumes:
+  database:
+  pgAdmin:
