@@ -13,7 +13,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Getter @Setter
 @Table(name = "users")
-class User implements Serializable {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
