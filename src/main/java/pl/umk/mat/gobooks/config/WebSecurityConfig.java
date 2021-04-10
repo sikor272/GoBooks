@@ -11,22 +11,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import pl.umk.mat.gobooks.auth.utils.AuthFilter;
+import pl.umk.mat.gobooks.auth.utils.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    //private UserDetailsServiceImpl userDetailsService;
-    private PasswordEncoder passwordEncoder;
-    //private AuthFilter authFilter;
+    private final UserDetailsServiceImpl userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthFilter authFilter;
 
-    /*public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, @Lazy PasswordEncoder passwordEncoder, AuthFilter authFilter) {
+    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, @Lazy PasswordEncoder passwordEncoder, AuthFilter authFilter) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
         this.authFilter = authFilter;
-    }*/
-
-    public WebSecurityConfig(@Lazy PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Bean
@@ -42,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //   auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+           auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     @Override
@@ -52,8 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin().disable();
         http.authorizeRequests()
                 .antMatchers("/users/**").authenticated()
-                .antMatchers("/comments/**").authenticated()
                 .anyRequest().permitAll();
-        //http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

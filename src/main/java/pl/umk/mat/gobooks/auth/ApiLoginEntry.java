@@ -1,9 +1,6 @@
 package pl.umk.mat.gobooks.auth;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pl.umk.mat.gobooks.common.Audit;
 import pl.umk.mat.gobooks.users.User;
 
@@ -12,7 +9,7 @@ import java.io.Serializable;
 import java.time.Instant;
 
 @Entity
-@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter

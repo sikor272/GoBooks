@@ -1,5 +1,6 @@
 package pl.umk.mat.gobooks.users;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.Objects;
 
 @Entity
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Table(name = "users")

@@ -1,11 +1,11 @@
 package pl.umk.mat.gobooks.auth.utils;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.filter.OncePerRequestFilter;
 import pl.umk.mat.gobooks.auth.ApiLoginEntry;
 import pl.umk.mat.gobooks.auth.ApiLoginEntryRepository;
@@ -23,6 +23,7 @@ import java.time.temporal.ChronoUnit;
 
 @Component
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class AuthFilter extends OncePerRequestFilter {
     private UserDetailsServiceImpl userDetailsService;
     private ApiLoginEntryRepository apiLoginEntriesRepository;
@@ -32,8 +33,7 @@ public class AuthFilter extends OncePerRequestFilter {
     }
 
     @Override
-    @Transactional
-    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String token = getTokenFromRequest(request);
 

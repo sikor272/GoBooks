@@ -10,7 +10,7 @@ import pl.umk.mat.gobooks.users.UserService;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private UserService userService;
+    private final UserService userService;
 
     public UserDetailsServiceImpl(UserService userService) {
         this.userService = userService;
