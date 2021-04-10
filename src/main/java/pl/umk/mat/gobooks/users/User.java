@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import pl.umk.mat.gobooks.common.Audit;
+import pl.umk.mat.gobooks.auth.enums.Role;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +12,8 @@ import java.util.Objects;
 
 @Entity
 @RequiredArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 @Table(name = "users")
 public class User implements Serializable {
 
@@ -33,6 +35,9 @@ public class User implements Serializable {
 
     @Embedded
     private Audit audit = new Audit();
+
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
 
     @Override
     public boolean equals(Object o) {

@@ -11,7 +11,8 @@ import java.time.Instant;
 
 @Embeddable
 @RequiredArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 public class Audit {
 
     private Instant createdOn;
