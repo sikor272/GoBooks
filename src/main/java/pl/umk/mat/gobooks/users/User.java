@@ -6,25 +6,26 @@ import lombok.Setter;
 import pl.umk.mat.gobooks.common.Audit;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @RequiredArgsConstructor
 @Getter @Setter
 @Table(name = "users")
-class User {
+class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 32)
+    @Column(nullable = false, unique = true, updatable = false, length = 32)
     private String username;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, updatable = false)
     private String email;
 
     @Column(length = 1000)
@@ -36,9 +37,9 @@ class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof User)) return false;
         User user = (User) o;
-        return username.equals(user.username) && email.equals(user.email);
+        return username.equals(user.getUsername()) && email.equals(user.getEmail());
     }
 
     @Override
