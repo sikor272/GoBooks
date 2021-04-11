@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import pl.umk.mat.gobooks.common.Audit;
 import pl.umk.mat.gobooks.auth.enums.Role;
+import pl.umk.mat.gobooks.common.Audit;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -40,6 +40,12 @@ public class User implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
+
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 
     @Override
     public boolean equals(Object o) {

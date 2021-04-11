@@ -12,4 +12,9 @@ public class BadRequest extends RuntimeException {
     public BadRequest() {
         super();
     }
+
+    @Override
+    public String getMessage() {
+        return super.getMessage();
+    }
 }

@@ -12,4 +12,9 @@ public class ResourceAlreadyExist extends RuntimeException {
     public ResourceAlreadyExist() {
         super();
     }
+
+    @Override
+    public String getMessage() {
+        return super.getMessage();
+    }
 }

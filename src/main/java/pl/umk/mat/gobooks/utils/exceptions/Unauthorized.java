@@ -12,4 +12,9 @@ public class Unauthorized extends RuntimeException {
     public Unauthorized() {
         super();
     }
+
+    @Override
+    public String getMessage() {
+        return super.getMessage();
+    }
 }

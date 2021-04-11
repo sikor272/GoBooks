@@ -1,6 +1,6 @@
 package pl.umk.mat.gobooks.utils;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import pl.umk.mat.gobooks.utils.exceptions.ResourceNotFound;
 
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @NoRepositoryBean
-public interface BaseRepository<T, ID> extends CrudRepository<T, ID> {
+public interface BaseRepository<T, ID> extends JpaRepository<T, ID> {
     default T findByIdOrThrow(ID id) {
         Optional<T> entity = this.findById(id);
         if (entity.isPresent()) {
@@ -20,8 +20,6 @@ public interface BaseRepository<T, ID> extends CrudRepository<T, ID> {
     }
 
     default List<T> findAllList() {
-        List<T> list = new ArrayList<>();
-        this.findAll().forEach(list::add);
-        return list;
+        return new ArrayList<>(this.findAll());
     }
 }

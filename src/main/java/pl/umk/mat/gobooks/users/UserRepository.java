@@ -5,7 +5,9 @@ import pl.umk.mat.gobooks.utils.BaseRepository;
 
 @Repository
 public interface UserRepository extends BaseRepository<User, Long> {
-    User findUserByEmail(String Email);
+    User findUserByEmail(String email);
 
-    Boolean existsUserByEmail(String Email);
+    Boolean existsUserByEmail(String email);
+
+    Boolean existsUserByUsername(String username);
 }

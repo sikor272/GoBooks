@@ -1,6 +1,5 @@
 package pl.umk.mat.gobooks.auth.utils;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,15 +7,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import pl.umk.mat.gobooks.users.User;
 
-
 import java.util.Collection;
 import java.util.Collections;
 
 @Getter
 @RequiredArgsConstructor
-@AllArgsConstructor
 public class UserPrincipal implements UserDetails {
-    private User user;
+    private final User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

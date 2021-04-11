@@ -1,6 +1,8 @@
 package pl.umk.mat.gobooks.auth;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pl.umk.mat.gobooks.common.Audit;
 import pl.umk.mat.gobooks.users.User;
 
@@ -9,7 +11,6 @@ import java.io.Serializable;
 import java.time.Instant;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -29,7 +30,12 @@ public class ApiLoginEntry implements Serializable {
     private Audit audit = new Audit();
 
     @ManyToOne
-    @JoinColumn (name = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
+    public ApiLoginEntry(User user, String token, Instant expiredAt) {
+        this.user = user;
+        this.token = token;
+        this.expiredAt = expiredAt;
+    }
 }

@@ -1,6 +1,5 @@
 package pl.umk.mat.gobooks.auth.utils;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,9 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import pl.umk.mat.gobooks.auth.ApiLoginEntry;
 import pl.umk.mat.gobooks.auth.ApiLoginEntryRepository;
-import pl.umk.mat.gobooks.utils.exceptions.ResourceNotFound;
-import pl.umk.mat.gobooks.utils.exceptions.TokenExpired;
-
+import pl.umk.mat.gobooks.utils.exceptions.Unauthorized;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -23,10 +20,9 @@ import java.time.temporal.ChronoUnit;
 
 @Component
 @RequiredArgsConstructor
-@AllArgsConstructor
 public class AuthFilter extends OncePerRequestFilter {
-    private UserDetailsServiceImpl userDetailsService;
-    private ApiLoginEntryRepository apiLoginEntriesRepository;
+    private final UserDetailsServiceImpl userDetailsService;
+    private final ApiLoginEntryRepository apiLoginEntriesRepository;
 
     private String getTokenFromRequest(HttpServletRequest request) {
         return request.getHeader("Token");
@@ -41,13 +37,13 @@ public class AuthFilter extends OncePerRequestFilter {
             ApiLoginEntry apiLogin = apiLoginEntriesRepository.findByToken(token);
             try {
                 if (apiLogin.getExpiredAt().isBefore(Instant.now())) {
-                    throw new TokenExpired();
+                    throw new Unauthorized("Token expired");
                 }
                 UserDetails userDetails = userDetailsService.loadUserByUsername(apiLogin.getUser().getEmail());
 
                 SecurityContextHolder.getContext().setAuthentication(new TokenBasedAuthentication(userDetails, token));
             } catch (UsernameNotFoundException e) {
-                throw new ResourceNotFound(e.getMessage());
+                throw new UsernameNotFoundException(e.getMessage());
             }
             apiLogin.setExpiredAt(Instant.now().plus(1, ChronoUnit.HOURS));
         }
