@@ -3,10 +3,8 @@ package pl.umk.mat.gobooks.utils.exceptions;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
-@XmlRootElement(name = "error")
 @Getter
 @Setter
 public class ErrorResponse {

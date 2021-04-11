@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.umk.mat.gobooks.users.User;
 import pl.umk.mat.gobooks.users.UserService;
 
 
@@ -16,10 +15,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userService.findUserByEmail(email);
-        if (user != null) {
-            return new UserPrincipal(user);
-        }
-        throw new UsernameNotFoundException(email);
+        return userService.findUserByEmail(email)
+                .map(UserPrincipal::new)
+                .orElseThrow(() -> new UsernameNotFoundException("User with " + email + " does not exist"));
+
     }
 }

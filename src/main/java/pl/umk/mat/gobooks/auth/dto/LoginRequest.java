@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Setter
 public class LoginRequest {
     @NotBlank(message = "Email can not be empty")
-    @Email
+    @Email(message = "Email should be in the correct format")
     @ApiModelProperty(notes = "It is exactly what you expect.", required = true)
     private String email;
 

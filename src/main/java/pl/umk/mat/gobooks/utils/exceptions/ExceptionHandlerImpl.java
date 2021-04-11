@@ -1,5 +1,6 @@
 package pl.umk.mat.gobooks.utils.exceptions;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class ExceptionHandlerImpl extends ResponseEntityExceptionHandler {
     public final ResponseEntity<Object> handleBadRequestException(BadRequest ex, WebRequest request) {
         List<String> details = new ArrayList<>();
         details.add(ex.getLocalizedMessage());
-        ErrorResponse error = new ErrorResponse("Resource Not Found", details);
+        ErrorResponse error = new ErrorResponse("Bad Request", details);
         return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
     }
 
@@ -56,6 +57,7 @@ public class ExceptionHandlerImpl extends ResponseEntityExceptionHandler {
         return new ResponseEntity(error, HttpStatus.UNAUTHORIZED);
     }
 
+    @NotNull
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> details = new ArrayList<>();

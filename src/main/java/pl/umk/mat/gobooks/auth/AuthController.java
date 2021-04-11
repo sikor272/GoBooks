@@ -29,7 +29,7 @@ public class AuthController {
 
     @Operation(summary = "Register with password.", tags = {"Authentication Controller"})
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public AuthResponse register(
             @RequestBody @Valid RegisterRequest registerRequest
     ) {

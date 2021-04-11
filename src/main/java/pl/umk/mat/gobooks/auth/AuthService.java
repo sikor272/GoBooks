@@ -14,6 +14,7 @@ import pl.umk.mat.gobooks.auth.utils.UserPrincipal;
 import pl.umk.mat.gobooks.users.User;
 import pl.umk.mat.gobooks.users.UserRepository;
 import pl.umk.mat.gobooks.utils.exceptions.ResourceAlreadyExist;
+import pl.umk.mat.gobooks.utils.exceptions.Unauthorized;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -27,17 +28,21 @@ public class AuthService {
     private final ApiLoginEntryRepository apiLoginEntryRepository;
 
     public AuthResponse login(LoginRequest loginRequest) {
-        UserPrincipal user = (UserPrincipal) authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(
-                        loginRequest.getEmail(),
-                        loginRequest.getPassword()
-                )).getPrincipal();
-        String token = RandomString.make(50);
-        apiLoginEntryRepository.save(new ApiLoginEntry(
-                user.getUser(),
-                token,
-                Instant.now().plus(1, ChronoUnit.HOURS)));
-        return new AuthResponse(user.getUser(), token);
+        try {
+            UserPrincipal user = (UserPrincipal) authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(
+                            loginRequest.getEmail(),
+                            loginRequest.getPassword()
+                    )).getPrincipal();
+            String token = RandomString.make(50);
+            apiLoginEntryRepository.save(new ApiLoginEntry(
+                    user.getUser(),
+                    token,
+                    Instant.now().plus(1, ChronoUnit.HOURS)));
+            return new AuthResponse(user.getUser(), token);
+        } catch (Exception exception) {
+            throw new Unauthorized("Invalid email or password");
+        }
     }
 
     @Transactional
