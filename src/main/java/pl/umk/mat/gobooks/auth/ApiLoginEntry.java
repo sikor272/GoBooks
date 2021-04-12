@@ -3,6 +3,7 @@ package pl.umk.mat.gobooks.auth;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import pl.umk.mat.gobooks.common.BaseEntity;
 import pl.umk.mat.gobooks.users.User;
@@ -16,6 +17,7 @@ import java.time.Instant;
 @Setter
 @Table(name = "api_login_entries")
 @Where(clause = "deleted = false")
+@SQLDelete(sql = "UPDATE users SET deleted = true WHERE id = ?")
 public class ApiLoginEntry extends BaseEntity {
 
     @Column(unique = true, nullable = false)
