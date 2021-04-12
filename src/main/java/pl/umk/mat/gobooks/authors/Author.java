@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
+import pl.umk.mat.gobooks.authors.enums.Nationality;
 import pl.umk.mat.gobooks.common.BaseEntity;
 
 import javax.persistence.*;
