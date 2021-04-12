@@ -2,26 +2,25 @@ package pl.umk.mat.gobooks.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import pl.umk.mat.gobooks.auth.enums.Role;
-import pl.umk.mat.gobooks.common.Audit;
+import pl.umk.mat.gobooks.commons.BaseEntity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@RequiredArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Table(name = "users")
-public class User implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Where(clause = "deleted = false")
+@SQLDelete(sql = "UPDATE users SET deleted = true WHERE id = ?")
+public class User extends BaseEntity {
 
     @Column(nullable = false, unique = true, updatable = false, length = 32)
     private String username;
@@ -34,9 +33,6 @@ public class User implements Serializable {
 
     @Column(length = 1000)
     private String avatar;
-
-    @Embedded
-    private Audit audit = new Audit();
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;

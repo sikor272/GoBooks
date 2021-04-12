@@ -1,7 +1,7 @@
 package pl.umk.mat.gobooks.auth;
 
 import org.springframework.stereotype.Repository;
-import pl.umk.mat.gobooks.utils.BaseRepository;
+import pl.umk.mat.gobooks.commons.BaseRepository;
 
 @Repository
 public interface ApiLoginEntryRepository extends BaseRepository<ApiLoginEntry, Long> {
