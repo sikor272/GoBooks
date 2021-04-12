@@ -5,10 +5,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import pl.umk.mat.gobooks.auth.enums.Role;
-import pl.umk.mat.gobooks.common.Audit;
+import pl.umk.mat.gobooks.common.BaseEntity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -17,11 +16,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Table(name = "users")
-public class User implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class User extends BaseEntity {
 
     @Column(nullable = false, unique = true, updatable = false, length = 32)
     private String username;
@@ -34,9 +29,6 @@ public class User implements Serializable {
 
     @Column(length = 1000)
     private String avatar;
-
-    @Embedded
-    private Audit audit = new Audit();
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
