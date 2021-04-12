@@ -1,4 +1,4 @@
-package pl.umk.mat.gobooks.common.exceptions;
+package pl.umk.mat.gobooks.commons.exceptions;
 
 import lombok.Getter;
 import lombok.Setter;

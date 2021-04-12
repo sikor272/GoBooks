@@ -1,4 +1,4 @@
-package pl.umk.mat.gobooks.common.exceptions;
+package pl.umk.mat.gobooks.commons.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

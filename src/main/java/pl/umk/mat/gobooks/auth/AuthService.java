@@ -13,8 +13,8 @@ import pl.umk.mat.gobooks.auth.dto.RegisterRequest;
 import pl.umk.mat.gobooks.auth.utils.UserPrincipal;
 import pl.umk.mat.gobooks.users.User;
 import pl.umk.mat.gobooks.users.UserRepository;
-import pl.umk.mat.gobooks.common.exceptions.ResourceAlreadyExist;
-import pl.umk.mat.gobooks.common.exceptions.Unauthorized;
+import pl.umk.mat.gobooks.commons.exceptions.ResourceAlreadyExist;
+import pl.umk.mat.gobooks.commons.exceptions.Unauthorized;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

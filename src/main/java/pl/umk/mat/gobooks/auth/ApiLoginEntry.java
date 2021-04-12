@@ -6,7 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import pl.umk.mat.gobooks.common.BaseEntity;
+import pl.umk.mat.gobooks.commons.BaseEntity;
 import pl.umk.mat.gobooks.users.User;
 
 import javax.persistence.*;

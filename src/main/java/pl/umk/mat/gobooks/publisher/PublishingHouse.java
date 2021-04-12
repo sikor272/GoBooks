@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import pl.umk.mat.gobooks.common.BaseEntity;
+import pl.umk.mat.gobooks.commons.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

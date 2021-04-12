@@ -1,4 +1,4 @@
-package pl.umk.mat.gobooks.common;
+package pl.umk.mat.gobooks.commons;
 
 import lombok.AccessLevel;
 import lombok.Getter;

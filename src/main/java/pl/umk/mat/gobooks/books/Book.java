@@ -7,7 +7,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import pl.umk.mat.gobooks.authors.Author;
 import pl.umk.mat.gobooks.books.enums.Category;
-import pl.umk.mat.gobooks.common.BaseEntity;
+import pl.umk.mat.gobooks.commons.BaseEntity;
 import pl.umk.mat.gobooks.publisher.PublishingHouse;
 
 import javax.persistence.*;

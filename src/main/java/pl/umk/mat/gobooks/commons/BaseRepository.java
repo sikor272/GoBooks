@@ -1,8 +1,8 @@
-package pl.umk.mat.gobooks.common;
+package pl.umk.mat.gobooks.commons;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
-import pl.umk.mat.gobooks.common.exceptions.ResourceNotFound;
+import pl.umk.mat.gobooks.commons.exceptions.ResourceNotFound;
 
 import java.util.ArrayList;
 import java.util.List;

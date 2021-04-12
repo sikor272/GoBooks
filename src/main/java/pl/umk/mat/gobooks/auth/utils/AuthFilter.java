@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import pl.umk.mat.gobooks.auth.ApiLoginEntry;
 import pl.umk.mat.gobooks.auth.ApiLoginEntryRepository;
-import pl.umk.mat.gobooks.common.exceptions.Unauthorized;
+import pl.umk.mat.gobooks.commons.exceptions.Unauthorized;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
