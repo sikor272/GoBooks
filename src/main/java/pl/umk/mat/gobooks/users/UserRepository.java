@@ -1,7 +1,7 @@
 package pl.umk.mat.gobooks.users;
 
 import org.springframework.stereotype.Repository;
-import pl.umk.mat.gobooks.utils.BaseRepository;
+import pl.umk.mat.gobooks.common.BaseRepository;
 
 import java.util.Optional;
 
