@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Setter
 @Where(clause = "deleted = false")
 @SQLDelete(sql = "UPDATE reviews SET deleted = TRUE WHERE id = ?")
-class Review extends BaseEntity {
+public class Review extends BaseEntity {
 
     @Column(nullable = false)
     private String title;
