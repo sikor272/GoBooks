@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.Where;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
