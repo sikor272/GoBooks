@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Where(clause = "deleted = false")
-@SQLDelete(sql = "UPDATE users SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE authors SET deleted = TRUE WHERE id = ?")
 public class Author extends BaseEntity {
 
     @Column(nullable = false)
