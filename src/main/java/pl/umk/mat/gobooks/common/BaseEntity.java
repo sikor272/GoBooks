@@ -26,6 +26,8 @@ public abstract class BaseEntity implements Serializable, Persistable<Long> {
 
     protected Instant updatedOn;
 
+    protected Boolean deleted = Boolean.FALSE;
+
     @Override
     public boolean isNew() {
         return id == null;
