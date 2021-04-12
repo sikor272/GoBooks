@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 import pl.umk.mat.gobooks.auth.enums.Role;
 import pl.umk.mat.gobooks.common.BaseEntity;
 
@@ -16,6 +17,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Table(name = "users")
+@Where(clause = "deleted = false")
 public class User extends BaseEntity {
 
     @Column(nullable = false, unique = true, updatable = false, length = 32)
