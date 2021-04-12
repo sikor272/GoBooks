@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Setter
 @Table(name = "publishing_houses")
 @Where(clause = "deleted = false")
-@SQLDelete(sql = "UPDATE users SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE publishing_houses SET deleted = TRUE WHERE id = ?")
 public class PublishingHouse extends BaseEntity {
 
     @Column(nullable = false)
