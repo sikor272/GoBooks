@@ -1,11 +1,11 @@
 package pl.umk.mat.gobooks.authors;
 
+import com.neovisionaries.i18n.CountryCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
-import pl.umk.mat.gobooks.authors.enums.Nationality;
 import pl.umk.mat.gobooks.commons.BaseEntity;
 
 import javax.persistence.*;
@@ -26,7 +26,7 @@ public class Author extends BaseEntity {
     private String lastName;
 
     @Enumerated(EnumType.STRING)
-    private Nationality nationality;
+    private CountryCode nationality;
 
     private LocalDate birthDate;
 
