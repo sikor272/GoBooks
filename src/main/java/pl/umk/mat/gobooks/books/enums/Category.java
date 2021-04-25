@@ -36,4 +36,10 @@ public enum Category {
     public String toString() {
         return name;
     }
+
+    public static Optional<Category> fromName(String name) {
+        return Arrays.stream(Category.values())
+                .filter(category -> category.name.equals(name))
+                .findAny();
+    }
 }
