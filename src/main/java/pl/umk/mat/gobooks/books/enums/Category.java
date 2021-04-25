@@ -1,8 +1,39 @@
 package pl.umk.mat.gobooks.books.enums;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 public enum Category {
-    // for now, it's only example
-    SCI_FI,
-    CRIME,
+
+    FANTASY("fantastyka"),
+    SCI_FI("science fiction"),
+    HORROR("horror"),
+    CRIME("kryminał"),
+    THRILLER("thriller"),
+    ROMANCE("romans"),
+    HISTORICAL_NOVEL("powieść historyczna"),
+    ADVENTURE_NOVEL("powieść przygodowa"),
+    BIOGRAPHY("biografia"),
+    NON_FICTION("literatura faktu"),
+    POPULAR_SCIENCE_LITERATURE("literatura popularnonaukowa"),
+    CHILDREN_S_LITERATURE("literatura dziecięca"),
+    COMICS("komiks"),
+    POETRY("poezja"),
+    MAGAZINE("czasopismo"),
     ;
+
+    private final String name;
+
+    Category(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
