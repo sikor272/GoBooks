@@ -6,7 +6,9 @@ import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
+import pl.umk.mat.gobooks.authors.dto.NewAuthor;
 import pl.umk.mat.gobooks.commons.BaseEntity;
+import pl.umk.mat.gobooks.commons.exceptions.BadRequest;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -33,6 +35,17 @@ public class Author extends BaseEntity {
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     private String biography;
+
+    public Author(NewAuthor newAuthor) throws BadRequest {
+        this.firstName = newAuthor.getFirstName();
+        this.lastName = newAuthor.getLastName();
+        try {
+            this.nationality = CountryCode.valueOf(newAuthor.getNationality());
+        } catch (IllegalArgumentException ex) {
+            throw new BadRequest(String.format("Cannot find %s nationality value", newAuthor.getNationality()));
+        }
+        this.birthDate = newAuthor.getBirthDate();
+    }
 
     @Override
     public boolean equals(Object o) {
