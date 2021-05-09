@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import pl.umk.mat.gobooks.commons.BaseRepository;
 
 @Repository
-interface AuthorRepository extends BaseRepository<Author, Long> {
+public interface AuthorRepository extends BaseRepository<Author, Long> {
 
     Page<Author> findDistinctByFirstNameContainsIgnoreCaseAndLastNameContainsIgnoreCase(
             String firstName, String lastName, Pageable pageable);

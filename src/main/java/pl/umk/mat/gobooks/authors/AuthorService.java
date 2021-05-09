@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-class AuthorService {
+public class AuthorService {
 
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
@@ -42,7 +42,7 @@ class AuthorService {
     }
 
     @Transactional
-    public Long save(NewAuthor newAuthor) {
+    public AuthorResponse save(NewAuthor newAuthor) {
         CountryCode nationality;
         try {
             nationality = CountryCode.valueOf(newAuthor.getNationality());
@@ -53,7 +53,7 @@ class AuthorService {
                 newAuthor.getFirstName(), newAuthor.getLastName(), nationality)) {
             throw new ResourceAlreadyExist();
         }
-        return authorRepository.save(new Author(newAuthor)).getId();
+        return new AuthorResponse(authorRepository.save(new Author(newAuthor)));
     }
 
     @Transactional
