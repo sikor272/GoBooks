@@ -2,6 +2,7 @@ package pl.umk.mat.gobooks.authors;
 
 import com.neovisionaries.i18n.CountryCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Type;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 @Table(name = "authors")
 @Getter
 @Setter
+@NoArgsConstructor
 @Where(clause = "deleted = false")
 @SQLDelete(sql = "UPDATE authors SET deleted = TRUE WHERE id = ?")
 public class Author extends BaseEntity {
