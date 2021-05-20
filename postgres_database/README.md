@@ -5,6 +5,6 @@
 * Port: 5432
 ##  Client 
 * Version: pgAdmin
-* Username: kbachon97@gmail.com
+* Username: root@gmail.com
 * Password: 123
 * Port: 8081
