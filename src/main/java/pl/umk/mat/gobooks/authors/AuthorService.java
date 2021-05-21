@@ -64,7 +64,7 @@ public class AuthorService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void delete(Long id) throws BadRequest {
         var author = authorRepository.findByIdOrThrow(id);
         if (bookRepository.existsByAuthor(author)) {
             throw new BadRequest("Cannot remove author with books");

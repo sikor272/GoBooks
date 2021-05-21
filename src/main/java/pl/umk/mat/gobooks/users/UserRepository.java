@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface UserRepository extends BaseRepository<User, Long> {
     Optional<User> findUserByEmail(String email);
 
-    Boolean existsUserByEmail(String email);
+    boolean existsUserByEmail(String email);
 
-    Boolean existsUserByUsername(String username);
+    boolean existsUserByUsername(String username);
 }

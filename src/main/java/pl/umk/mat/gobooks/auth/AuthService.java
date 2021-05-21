@@ -11,10 +11,10 @@ import pl.umk.mat.gobooks.auth.dto.AuthResponse;
 import pl.umk.mat.gobooks.auth.dto.LoginRequest;
 import pl.umk.mat.gobooks.auth.dto.RegisterRequest;
 import pl.umk.mat.gobooks.auth.utils.UserPrincipal;
-import pl.umk.mat.gobooks.users.User;
-import pl.umk.mat.gobooks.users.UserRepository;
 import pl.umk.mat.gobooks.commons.exceptions.ResourceAlreadyExist;
 import pl.umk.mat.gobooks.commons.exceptions.Unauthorized;
+import pl.umk.mat.gobooks.users.User;
+import pl.umk.mat.gobooks.users.UserRepository;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -34,7 +34,7 @@ public class AuthService {
                             loginRequest.getEmail(),
                             loginRequest.getPassword()
                     )).getPrincipal();
-            String token = RandomString.make(50);
+            var token = RandomString.make(50);
             apiLoginEntryRepository.save(new ApiLoginEntry(
                     user.getUser(),
                     token,
@@ -47,18 +47,18 @@ public class AuthService {
 
     @Transactional
     public AuthResponse register(RegisterRequest registerRequest) {
-        if (userRepository.existsUserByEmail(registerRequest.getEmail()).equals(Boolean.TRUE)) {
+        if (userRepository.existsUserByEmail(registerRequest.getEmail())) {
             throw new ResourceAlreadyExist("User with this email already exist");
         }
-        if (userRepository.existsUserByUsername(registerRequest.getUsername()).equals(Boolean.TRUE)) {
+        if (userRepository.existsUserByUsername(registerRequest.getUsername())) {
             throw new ResourceAlreadyExist("User with this username already exist");
         }
-        User user = userRepository.save(new User(
+        var user = userRepository.save(new User(
                 registerRequest.getUsername(),
                 passwordEncoder.encode(registerRequest.getPassword()),
                 registerRequest.getEmail()
         ));
-        String token = RandomString.make(50);
+        var token = RandomString.make(50);
         apiLoginEntryRepository.save(new ApiLoginEntry(
                 user,
                 token,

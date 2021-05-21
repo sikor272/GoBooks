@@ -28,6 +28,12 @@ public enum Category {
         this.name = name;
     }
 
+    public static Optional<Category> fromName(String name) {
+        return Arrays.stream(Category.values())
+                .filter(category -> category.name.equals(name))
+                .findAny();
+    }
+
     public String getName() {
         return name;
     }
@@ -35,11 +41,5 @@ public enum Category {
     @Override
     public String toString() {
         return name;
-    }
-
-    public static Optional<Category> fromName(String name) {
-        return Arrays.stream(Category.values())
-                .filter(category -> category.name.equals(name))
-                .findAny();
     }
 }

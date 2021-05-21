@@ -24,5 +24,7 @@ public interface BaseRepository<T, ID> extends JpaRepository<T, ID> {
         return new ArrayList<>(this.findAll());
     }
 
-    default List<T> findAllList(Pageable pageable) { return new ArrayList<>(this.findAll(pageable).toList()); }
+    default List<T> findAllList(Pageable pageable) {
+        return new ArrayList<>(this.findAll(pageable).toList());
+    }
 }
