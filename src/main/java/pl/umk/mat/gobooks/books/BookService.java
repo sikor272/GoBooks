@@ -15,6 +15,7 @@ import pl.umk.mat.gobooks.publisher.PublishingHouseRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,23 +36,34 @@ public class BookService {
         return new BookResponse(bookRepository.findByIdOrThrow(id));
     }
 
-    public List<BookResponse> search(String author, String category, String publisher, Pageable pageable) {
-        // TODO: MD implement
-        return bookRepository.findAll(pageable).stream()
+    public List<BookResponse> searchByAuthor(Long authorId, Pageable pageable) throws ResourceNotFound {
+        var author = authorRepository.findByIdOrThrow(authorId);
+        return bookRepository.findAllByAuthor(author, pageable).stream()
                 .map(BookResponse::new)
                 .collect(Collectors.toList());
     }
 
-    public List<BookResponse> findBestBooks(String author, String category, String publisher, Pageable pageable) {
-        // TODO: MD implement
-        return bookRepository.findAll(pageable).stream()
+    public List<BookResponse> searchByCategories(List<String> categories, Pageable pageable) {
+        List<Category> categoriesList = categories.stream()
+                .map(Category::fromName)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+        return bookRepository.findAllByCategoryIn(categoriesList, pageable).stream()
+                .map(BookResponse::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<BookResponse> searchByPublisher(Long publisherId, Pageable pageable) throws ResourceNotFound {
+        var publisher = publishingHouseRepository.findByIdOrThrow(publisherId);
+        return bookRepository.findAllByPublishingHouse(publisher, pageable).stream()
                 .map(BookResponse::new)
                 .collect(Collectors.toList());
     }
 
     @Transactional
     public BookResponse save(NewBook newBook) throws ResourceAlreadyExist, BadRequest {
-        if (!bookExists(newBook)) {
+        if (bookExists(newBook)) {
             throw new ResourceAlreadyExist("Cannot create book with duplicated ISBN or pair (author, title)");
         }
 

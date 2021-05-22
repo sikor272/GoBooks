@@ -12,8 +12,10 @@ import pl.umk.mat.gobooks.books.dto.UpdatedBook;
 import pl.umk.mat.gobooks.commons.IterableResponse;
 import pl.umk.mat.gobooks.commons.exceptions.BadRequest;
 import pl.umk.mat.gobooks.commons.exceptions.ResourceAlreadyExist;
+import pl.umk.mat.gobooks.commons.exceptions.ResourceNotFound;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/books")
@@ -35,30 +37,36 @@ public class BookController {
         return bookService.findById(id);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search/author/{authorId}")
     @Operation(summary = ".", tags = {"Books Controller"})
-    public IterableResponse<BookResponse> search(
-            @RequestParam(defaultValue = "") String author,
-            @RequestParam(defaultValue = "") String category,
-            @RequestParam(defaultValue = "") String publisher,
-            Pageable pageable
+    public IterableResponse<BookResponse> searchByAuthor(@PathVariable Long authorId, Pageable pageable) throws ResourceNotFound {
+        return new IterableResponse<>(
+                bookService.searchByAuthor(authorId, pageable)
+        );
+    }
+
+    @GetMapping("/search/categories")
+    @Operation(summary = ".", tags = {"Books Controller"})
+    public IterableResponse<BookResponse> searchByCategories(@RequestParam List<String> categories, Pageable pageable
     ) {
         return new IterableResponse<>(
-                bookService.search(author, category, publisher, pageable)
+                bookService.searchByCategories(categories, pageable)
+        );
+    }
+
+    @GetMapping("/search/publisher/{publisherId}")
+    @Operation(summary = ".", tags = {"Books Controller"})
+    public IterableResponse<BookResponse> searchByPublisher(@PathVariable Long publisherId, Pageable pageable) throws ResourceNotFound {
+        return new IterableResponse<>(
+                bookService.searchByPublisher(publisherId, pageable)
         );
     }
 
     @GetMapping("/bestBooks")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
     @Operation(summary = ".", tags = {"Books Controller"})
-    public IterableResponse<BookResponse> getBestBooks(
-            @RequestParam(defaultValue = "") String author,
-            @RequestParam(defaultValue = "") String category,
-            @RequestParam(defaultValue = "") String publisher,
-            Pageable pageable
-    ) {
-        return new IterableResponse<>(
-                bookService.search(author, category, publisher, pageable)
-        );
+    public IterableResponse<BookResponse> getBestBooks(Pageable pageable) {
+        return new IterableResponse<>(null);
     }
 
     @PostMapping
