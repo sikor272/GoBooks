@@ -39,7 +39,8 @@ public class BookController {
 
     @GetMapping("/search/author/{authorId}")
     @Operation(summary = ".", tags = {"Books Controller"})
-    public IterableResponse<BookResponse> searchByAuthor(@PathVariable Long authorId, Pageable pageable) throws ResourceNotFound {
+    public IterableResponse<BookResponse> searchByAuthor(@PathVariable Long authorId, Pageable pageable)
+            throws ResourceNotFound {
         return new IterableResponse<>(
                 bookService.searchByAuthor(authorId, pageable)
         );
@@ -47,8 +48,7 @@ public class BookController {
 
     @GetMapping("/search/categories")
     @Operation(summary = ".", tags = {"Books Controller"})
-    public IterableResponse<BookResponse> searchByCategories(@RequestParam List<String> categories, Pageable pageable
-    ) {
+    public IterableResponse<BookResponse> searchByCategories(@RequestParam List<String> categories, Pageable pageable) {
         return new IterableResponse<>(
                 bookService.searchByCategories(categories, pageable)
         );
@@ -56,7 +56,8 @@ public class BookController {
 
     @GetMapping("/search/publisher/{publisherId}")
     @Operation(summary = ".", tags = {"Books Controller"})
-    public IterableResponse<BookResponse> searchByPublisher(@PathVariable Long publisherId, Pageable pageable) throws ResourceNotFound {
+    public IterableResponse<BookResponse> searchByPublisher(@PathVariable Long publisherId, Pageable pageable)
+            throws ResourceNotFound {
         return new IterableResponse<>(
                 bookService.searchByPublisher(publisherId, pageable)
         );
