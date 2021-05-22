@@ -2,6 +2,7 @@ package pl.umk.mat.gobooks.books;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,51 +17,70 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("api/books")
+@RequiredArgsConstructor
 @Tag(name = "Books Controller", description = "This controller provide logic for books")
-public interface BookController {
+public class BookController {
+
+    private final BookService bookService;
 
     @GetMapping
     @Operation(summary = ".", tags = {"Books Controller"})
-    IterableResponse<BookResponse> getAll(Pageable pageable);
+    public IterableResponse<BookResponse> getAll(Pageable pageable) {
+        return new IterableResponse<>(bookService.findAll(pageable));
+    }
 
     @GetMapping("/{id}")
     @Operation(summary = ".", tags = {"Books Controller"})
-    BookResponse getById(@PathVariable Long id);
+    BookResponse getById(@PathVariable Long id) {
+        return bookService.findById(id);
+    }
 
     @GetMapping("/search")
     @Operation(summary = ".", tags = {"Books Controller"})
-    IterableResponse<BookResponse> search(
+    public IterableResponse<BookResponse> search(
             @RequestParam(defaultValue = "") String author,
             @RequestParam(defaultValue = "") String category,
             @RequestParam(defaultValue = "") String publisher,
             Pageable pageable
-    );
+    ) {
+        return new IterableResponse<>(
+                bookService.search(author, category, publisher, pageable)
+        );
+    }
 
     @GetMapping("/bestBooks")
     @Operation(summary = ".", tags = {"Books Controller"})
-    IterableResponse<BookResponse> getBestBooks(
+    public IterableResponse<BookResponse> getBestBooks(
             @RequestParam(defaultValue = "") String author,
             @RequestParam(defaultValue = "") String category,
             @RequestParam(defaultValue = "") String publisher,
             Pageable pageable
-    );
+    ) {
+        return new IterableResponse<>(
+                bookService.search(author, category, publisher, pageable)
+        );
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = ".", tags = {"Books Controller"})
-    BookResponse save(
-            @RequestBody @Valid NewBook newBook
-    ) throws BadRequest;
+    public BookResponse save(@RequestBody @Valid NewBook newBook) throws BadRequest {
+        return bookService.save(newBook);
+    }
 
     @PatchMapping("/{id}")
     @Operation(summary = ".", tags = {"Books Controller"})
-    BookResponse update(
+    public BookResponse update(
             @PathVariable Long id,
             @RequestBody @Valid UpdatedBook updatedBook
-    ) throws ResourceAlreadyExist, BadRequest;
+    ) throws ResourceAlreadyExist, BadRequest {
+        return bookService.update(id, updatedBook);
+    }
 
     @DeleteMapping("/{id}")
     @Operation(summary = ".", tags = {"Books Controller"})
-    void delete(@PathVariable Long id) throws BadRequest;
+    public void delete(@PathVariable Long id) throws BadRequest {
+        bookService.delete(id);
+    }
 
 }
