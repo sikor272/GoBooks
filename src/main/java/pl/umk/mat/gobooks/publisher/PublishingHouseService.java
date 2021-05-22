@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.umk.mat.gobooks.books.BookRepository;
 import pl.umk.mat.gobooks.commons.exceptions.BadRequest;
 import pl.umk.mat.gobooks.commons.exceptions.ResourceAlreadyExist;
+import pl.umk.mat.gobooks.commons.exceptions.ResourceNotFound;
 import pl.umk.mat.gobooks.publisher.dto.NewPublishingHouse;
 import pl.umk.mat.gobooks.publisher.dto.PublishingHouseResponse;
 
@@ -38,7 +39,7 @@ public class PublishingHouseService {
     }
 
     @Transactional
-    public PublishingHouseResponse save(NewPublishingHouse newPublishingHouse) {
+    public PublishingHouseResponse save(NewPublishingHouse newPublishingHouse) throws ResourceAlreadyExist {
         if (publishingHouseRepository.existsByNameEquals(newPublishingHouse.getName())) {
             throw new ResourceAlreadyExist();
         }
@@ -46,17 +47,19 @@ public class PublishingHouseService {
     }
 
     @Transactional
-    public PublishingHouseResponse updateName(Long id, NewPublishingHouse newPublishingHouse) throws ResourceAlreadyExist {
+    public PublishingHouseResponse updateName(Long id, NewPublishingHouse newPublishingHouse)
+            throws ResourceAlreadyExist, ResourceNotFound {
         var publishingHouse = publishingHouseRepository.findByIdOrThrow(id);
+        // TODO: MD co jeśli wysyłam update bez zmiany nazwy?
         if (publishingHouseRepository.existsByNameEquals(newPublishingHouse.getName())) {
-            throw new ResourceAlreadyExist();
+            throw new ResourceAlreadyExist("Cannot create second publisher with the same name");
         }
         publishingHouse.setName(newPublishingHouse.getName());
         return new PublishingHouseResponse(publishingHouseRepository.save(publishingHouse));
     }
 
     @Transactional
-    public void delete(Long id) throws BadRequest {
+    public void delete(Long id) throws ResourceNotFound, BadRequest {
         var publishingHouse = publishingHouseRepository.findByIdOrThrow(id);
         if (bookRepository.existsByPublishingHouse(publishingHouse)) {
             throw new BadRequest("Cannot remove publishing house with books");

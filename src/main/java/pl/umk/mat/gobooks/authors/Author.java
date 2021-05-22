@@ -58,4 +58,8 @@ public class Author extends BaseEntity {
     public int hashCode() {
         return super.hashCode();
     }
+
+    public String getBasicPersonals() {
+        return this.firstName + " " + this.lastName;
+    }
 }
