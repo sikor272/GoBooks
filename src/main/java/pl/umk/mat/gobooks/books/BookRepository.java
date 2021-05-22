@@ -7,7 +7,12 @@ import pl.umk.mat.gobooks.publisher.PublishingHouse;
 
 @Repository
 public interface BookRepository extends BaseRepository<Book, Long> {
+
     boolean existsByAuthor(Author author);
 
     boolean existsByPublishingHouse(PublishingHouse publishingHouse);
+
+    boolean existsByIsbn(String isbn);
+
+    boolean existsByAuthor_IdAndTitle(Long authorId, String title);
 }
