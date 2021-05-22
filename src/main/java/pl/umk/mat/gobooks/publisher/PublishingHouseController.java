@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.umk.mat.gobooks.commons.IterableResponse;
 import pl.umk.mat.gobooks.commons.exceptions.BadRequest;
 import pl.umk.mat.gobooks.commons.exceptions.ResourceAlreadyExist;
+import pl.umk.mat.gobooks.commons.exceptions.ResourceNotFound;
 import pl.umk.mat.gobooks.publisher.dto.NewPublishingHouse;
 import pl.umk.mat.gobooks.publisher.dto.PublishingHouseResponse;
 
@@ -47,7 +48,7 @@ public class PublishingHouseController {
     @Operation(summary = ".", tags = {"Publishing House Controller"})
     public PublishingHouseResponse save(
             @RequestBody @Valid NewPublishingHouse newPublishingHouse
-    ) throws BadRequest {
+    ) throws ResourceAlreadyExist {
         return publishingHouseService.save(newPublishingHouse);
     }
 
@@ -56,13 +57,13 @@ public class PublishingHouseController {
     public PublishingHouseResponse updateName(
             @PathVariable Long id,
             @RequestBody @Valid NewPublishingHouse newPublishingHouse
-    ) throws ResourceAlreadyExist {
+    ) throws ResourceAlreadyExist, ResourceNotFound {
         return publishingHouseService.updateName(id, newPublishingHouse);
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = ".", tags = {"Publishing House Controller"})
-    public void delete(@PathVariable Long id) throws BadRequest {
+    public void delete(@PathVariable Long id) throws ResourceNotFound, BadRequest {
         publishingHouseService.delete(id);
     }
 
