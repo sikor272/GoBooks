@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import pl.umk.mat.gobooks.commons.exceptions.ResourceNotFound;
 
-import java.io.IOException;
-
 @RestController
 @RequestMapping("api/resources")
 @RequiredArgsConstructor
