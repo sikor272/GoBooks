@@ -5,6 +5,6 @@
 * Port: 5432
 ##  Client 
 * Version: pgAdmin
-* Username: root@gmail.com
+* Username: root@gobooks.com
 * Password: 123
 * Port: 8081
