@@ -33,7 +33,7 @@ public class BookController {
 
     @GetMapping("/{id}")
     @Operation(summary = ".", tags = {"Books Controller"})
-    BookResponse getById(@PathVariable Long id) {
+    public BookResponse getById(@PathVariable Long id) {
         return bookService.findById(id);
     }
 
