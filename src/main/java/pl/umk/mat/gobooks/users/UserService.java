@@ -69,6 +69,10 @@ public class UserService {
         }
         String filename = "avatar_" + RandomString.make(20) + "." + fileExtension;
         String filePath = config.getImageDir() + filename;
+        var directory = new File(config.getImageDir());
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
         if (new File(filePath).exists())
             throw new ResourceAlreadyExist("File exist try later.");
         if (user.getAvatar() != null && !"".equals(user.getAvatar()) && !user.getAvatar().equals(config.getImageDir() + AVATAR_DEFAULT_JPG)) {
