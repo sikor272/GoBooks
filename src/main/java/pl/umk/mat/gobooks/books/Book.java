@@ -59,7 +59,7 @@ public class Book extends BaseEntity {
         if (this == o) return true;
         if (!(o instanceof Book)) return false;
         if (!super.equals(o)) return false;
-        Book book = (Book) o;
+        var book = (Book) o;
         return getIsbn().equals(book.getIsbn());
     }
 

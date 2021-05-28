@@ -23,6 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthFilter authFilter;
 
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, @Lazy PasswordEncoder passwordEncoder, AuthFilter authFilter) {
+        super();
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
         this.authFilter = authFilter;
@@ -50,8 +51,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.formLogin().disable();
         http.authorizeRequests()
-                .antMatchers("/users/**").authenticated()
+                .antMatchers("/api/users/**").authenticated()
                 .anyRequest().permitAll();
         http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
 }
