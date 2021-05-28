@@ -71,7 +71,7 @@ public class UserService {
         String filePath = config.getImageDir() + filename;
         if (new File(filePath).exists())
             throw new ResourceAlreadyExist("File exist try later.");
-        if (!"".equals(user.getAvatar()) && !user.getAvatar().equals(config.getImageDir() + AVATAR_DEFAULT_JPG)) {
+        if (user.getAvatar() != null && !"".equals(user.getAvatar()) && !user.getAvatar().equals(config.getImageDir() + AVATAR_DEFAULT_JPG)) {
             new File(config.getImageDir() + user.getAvatar()).delete();
         }
         user.setAvatar(filename);
