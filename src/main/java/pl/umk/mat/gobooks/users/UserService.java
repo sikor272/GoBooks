@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    private static final String AVATAR_DEFAULT_JPG = "avatar_default.jpg";
     private final UserRepository userRepository;
     private final Config config;
 
@@ -59,7 +60,7 @@ public class UserService {
         if (originalName == null) {
             throw new BadRequest("Incorrect file name.");
         }
-        User user = userPrincipal.getUser();
+        var user = userPrincipal.getUser();
         String fileExtension = originalName.substring(originalName.lastIndexOf(".") + 1).toLowerCase();
         if (fileExtension.equals(file.getOriginalFilename()))
             throw new BadRequest("Incorrect file extension.");
@@ -70,7 +71,7 @@ public class UserService {
         String filePath = config.getImageDir() + filename;
         if (new File(filePath).exists())
             throw new ResourceAlreadyExist("File exist try later.");
-        if (!"".equals(user.getAvatar()) && !user.getAvatar().equals(config.getImageDir() + "avatar_default.jpg")) {
+        if (!"".equals(user.getAvatar()) && !user.getAvatar().equals(config.getImageDir() + AVATAR_DEFAULT_JPG)) {
             new File(config.getImageDir() + user.getAvatar()).delete();
         }
         user.setAvatar(filename);
@@ -86,10 +87,10 @@ public class UserService {
     @Transactional
     public UserResponse deleteUserAvatar(UserPrincipal userPrincipal) {
         User user = userPrincipal.getUser();
-        if (!"".equals(user.getAvatar()) && !user.getAvatar().equals(config.getImageDir() + "avatar_default.jpg")) {
+        if (!"".equals(user.getAvatar()) && !user.getAvatar().equals(config.getImageDir() + AVATAR_DEFAULT_JPG)) {
             new File(config.getImageDir() + user.getAvatar()).delete();
         }
-        user.setAvatar("avatar_default.jpg");
+        user.setAvatar(AVATAR_DEFAULT_JPG);
         userRepository.save(user);
         return new UserResponse(user);
     }
