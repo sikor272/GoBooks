@@ -4,10 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.umk.mat.gobooks.commons.exceptions.ResourceNotFound;
 
 @RestController
@@ -17,7 +14,7 @@ import pl.umk.mat.gobooks.commons.exceptions.ResourceNotFound;
 public class ResourcesController {
     private final ResourcesService resourcesService;
 
-    @RequestMapping("/{imageName}")
+    @GetMapping("/{imageName}")
     @ResponseBody
     @Operation(summary = ".", tags = {"Resource Controller"})
     public HttpEntity<byte[]> getImage(
